@@ -83,13 +83,14 @@ const LoginScreen = ({navigation}) => {
             secureTextEntry
             textContentType="password"
           />
-          <SubmitButton title="Login" />
+          <SubmitButton title="Se connecter" />
         </Form>
       </View>
       <View style={styles.buttonsContainer}>
         <Button
           title="Creer un compte"
           onPress={() => navigation.navigate(routes.REGISTER)}
+          color="greenPrimary"
         />
       </View>
     </Screen>

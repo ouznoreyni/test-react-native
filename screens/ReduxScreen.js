@@ -8,14 +8,22 @@ import {fetchUsers} from '../store/usersSlice';
 const ReduxScreen = ({navigation}) => {
   const usersState = useSelector(state => state.users);
   const [users, setUsers] = useState([]);
+  const [isLoaded, setIsloaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers());
-    setUsers(usersState.users);
-    console.log('state', usersState.users);
+    loadUsers();
   }, [users, usersState.users]);
 
+  const loadUsers = () => {
+    if (users.length != 0) {
+      setIsloaded(true);
+    }
+    if (!isLoaded) {
+      dispatch(fetchUsers());
+      setUsers(usersState.users);
+    }
+  };
   return (
     <Screen>
       <View>

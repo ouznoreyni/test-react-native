@@ -29,6 +29,7 @@ const AppNavigator = () => {
       <Tab.Screen
         name={routes.USERS_LIST}
         component={AppDrawerUser}
+        
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon name="users" size={size} color={color} />

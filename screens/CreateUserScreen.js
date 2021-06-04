@@ -1,10 +1,19 @@
 import React, {useState} from 'react';
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import Toast from 'react-native-simple-toast';
 import * as Yup from 'yup';
 import CustomHeader from '../components/CustomHeader';
 import {ErrorMessage, Form, FormField, SubmitButton} from '../components/forms';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
+import routes from '../navigation/routes';
 import usersService from '../services/usersService';
 
 const validationSchema = Yup.object().shape({
@@ -21,9 +30,22 @@ const CreateUserScreen = ({navigation}) => {
     } else {
       try {
         const response = await usersService.create({name, job});
-        console.log('user ', response);
-      } catch (error) {}
+        console.log('user ', response.data);
+        Alert.alert(
+          'utilisateur creer avec succes',
+          `les information du user crer \n\n id:${response.data.id} \nnom:${response.data.name} \njob:${response.data.job} \ncreer:${response.data.createdAt}`,
+          [{text: 'OK', onPress: () => navigation.navigate(routes.USERS_LIST)}],
+        );
+      } catch (error) {
+        notify('une erreur est survenue au niveau du backend');
+        console.log(error);
+      }
     }
+  };
+
+  const notify = message => {
+    Toast.show(`${message}`, Toast.LONG, Toast.TOP, []);
+    Alert.alert('error', `oups! ${message}`);
   };
 
   return (

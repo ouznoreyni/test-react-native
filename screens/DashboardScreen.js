@@ -24,7 +24,9 @@ const DashboardScreen = ({navigation}) => {
         />
         <Button
           title="Ecran Creer utilisateur"
-          onPress={() => navigation.navigate(routes.USER_CREATE)}
+          onPress={() =>
+            navigation.navigate(routes.USER_CREATE, {screen: routes.USERS_LIST})
+          }
           color="blueDark"
         />
         <Button
